@@ -54,6 +54,20 @@
 	    <table class="list_table" cellpadding="1" cellspacing="1" style="width:600px">
 	    <tr>
 	      {assign var="up_down" value=""}
+              {if     $order == "form_id-DESC"}
+                {assign var=sort_order value="order=form_id-ASC"}
+                {assign var=up_down value="<img src=\"`$theme_url`/images/sort_down.gif\" />"}
+              {elseif $order == "form_id-ASC"}
+                {assign var=sort_order value="order=form_id-DESC"}
+                {assign var=up_down value="<img src=\"`$theme_url`/images/sort_up.gif\" />"}
+              {else}
+                {assign var=sort_order value="order=form_id-DESC"}
+              {/if}
+              <th width="30" class="sortable_col{if $up_down} over{/if}">
+                <a href="{$same_page}?{$sort_order}">{$LANG.word_id|upper} {$up_down}</a>
+              </th>
+              
+	      {assign var="up_down" value=""}
           {if     $search_criteria.order == "form_name-DESC"}
 	        {assign var=order_col value="order=form_name-ASC"}
 	        {assign var=up_down value="<img src=\"`$theme_url`/images/sort_down.gif\" />"}
@@ -76,6 +90,7 @@
 	      {assign var=form_id value=$form_info.form_id}
 
 	      <tr style="height: 20px;">
+        <td align="center" class="medium_grey">{$form_id}</td>
 	        <td class="pad_left_small">
               {if $form_info.form_type == "external"}
                 {$form_info.form_name}
