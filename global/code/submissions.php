@@ -30,7 +30,21 @@ function ft_create_blank_submission($form_id, $view_id, $is_finalized = false)
     return "";
 
   $now = ft_get_current_datetime();
-  $ip  = $_SERVER["REMOTE_ADDR"];
+  //$ip  = $_SERVER["REMOTE_ADDR"];
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////ADDED
+        if (!empty($_SERVER['HTTP_X_REAL_IP']))   //check ip from share internet
+        {
+            $ip=$_SERVER['HTTP_X_REAL_IP'];
+        }
+        elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR']))   //to check ip is pass from proxy
+        {
+            $ip=$_SERVER['HTTP_X_FORWARDED_FOR'];
+        }
+        else
+        {
+            $ip=$_SERVER['REMOTE_ADDR'];      
+        }
+/////////////////////////////////////////////////////////////////////////////////////////
 
   // if the administrator has specified any default values for submissions created through this View
   $default_insert_pairs = array(
