@@ -114,7 +114,15 @@ function ft_generate_submission_js_validation($grouped_fields, $settings = array
     $custom_error_handler_str = (!empty($custom_error_handler)) ? "rsv.customErrorHandler = $custom_error_handler;" : "";
     $js =<<< END
 $(function() {
-  $("#{$form_element_id}").bind("submit", function() { return rsv.validate(this, rules); });
+  $("#{$form_element_id}").bind("submit", function() { 
+    if (rsv.validate(this, rules) != true) {
+  return false;
+}else {
+$('input[type="submit"]').val('Отправка...');
+return rsv.validate(this, rules);
+}
+   });
+   
   $custom_error_handler_str
 });
 var rules = [];
