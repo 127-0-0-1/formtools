@@ -556,7 +556,7 @@
 
 
     <div class="row3_page dialog_page" style="display:none">
-      <img src="images/form_builder_sections.jpg" style="float:right; border: 1px solid #999999; margin: 0px 0px 10px 10px" />
+      
 
       <h3>The Form Builder window</h3>
       <p>
