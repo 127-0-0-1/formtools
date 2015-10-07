@@ -2,20 +2,20 @@
  * rsv.js - Really Simple Validation
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
- * v2.5.2, Jan 30 2010
+ * v2.5.3, Nov 1 2014
  */
 
-if(typeof rsv=='undefined') rsv={};
+if (typeof rsv == 'undefined') rsv = {};
 
 // SETTINGS
-rsv.displayType="display-html";
-rsv.errorFieldClass="rsvErrorField";
-rsv.errorTextIntro="Please fix the following error(s) and resubmit:";
-rsv.errorJSItemBullet="* ";
-rsv.errorHTMLItemBullet="&bull; ";
-rsv.errorTargetElementId="ft_message";
-rsv.customErrorHandler=(typeof g_rsvErrors != 'undefined') ? g_rsvErrors : null;
-rsv.onCompleteHandler=null;
+rsv.displayType          = "display-html";
+rsv.errorFieldClass      = "rsvErrorField";
+rsv.errorTextIntro       = "Исправьте следующие ошибки:";
+rsv.errorJSItemBullet    = "* ";
+rsv.errorHTMLItemBullet  = "&bull; ";
+rsv.errorTargetElementId = "ft_message";
+rsv.customErrorHandler   = (typeof g_rsvErrors != 'undefined') ? g_rsvErrors : null;
+rsv.onCompleteHandler    = null;
 
 // ~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -516,8 +516,11 @@ rsv.validate = function(form, rules)
 
 
   // if the user has defined a custom event handler, pass the information to it
-  if (typeof rsv.customErrorHandler == 'function')
-    return rsv.customErrorHandler(form, rsv.returnHash);
+  if (typeof rsv.customErrorHandler == 'function') {
+    if (!rsv.customErrorHandler(form, rsv.returnHash)) {
+      return false;
+    }
+ }
 
   // if the user has chosen "alert-all" or "return-errors", perform the appropriate action
   else if (rsv.displayType == "alert-all")
@@ -656,7 +659,6 @@ rsv.isValidEmail = function(str)
   var dot = ".";
   var lat = s.indexOf(at);
   var lstr = s.length;
-  var ldot = s.indexOf(dot);
 
   if (s.indexOf(at)==-1 ||
      (s.indexOf(at)==-1 || s.indexOf(at)==0 || s.indexOf(at)==lstr) ||
